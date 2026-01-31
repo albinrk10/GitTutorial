@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     Greeting(
                         name = "java",
                         modifier = Modifier.padding(innerPadding)
-                    )
+                    )///////////////////////////// :)
                 }
             }
         }
