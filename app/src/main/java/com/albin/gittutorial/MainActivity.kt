@@ -22,9 +22,9 @@ class MainActivity : ComponentActivity() {
             GitTutorialTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Ios",
+                        name = "Kotlin",
                         modifier = Modifier.padding(innerPadding)
-                    )
+                    )///////////////////////////// :)
                 }
             }
         }
@@ -44,6 +44,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     GitTutorialTheme {
-        Greeting("Flutter")
+        Greeting("java")
     }
 }
