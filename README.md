@@ -12,6 +12,7 @@
 5. [Git Flow: Metodología Profesional](#5-git-flow-metodología-profesional)
 6. [Casos Prácticos Paso a Paso](#6-casos-prácticos-paso-a-paso)
 7. [Buenas Prácticas & Chuleta Rápida (Cheat Sheet)](#7-buenas-prácticas--chuleta-rápida-cheat-sheet)
+8. [Simulación Real de Ramas en este Repositorio](#8-simulación-real-de-ramas-en-este-repositorio)
 
 ---
 
@@ -336,3 +337,83 @@ Usa prefijos claros para que cualquier persona entienda el historial de un vista
 
 > [!TIP]
 > **Regla de Oro en Equipos:** Nunca hagas commits directamente en `master` o `main`. Todo cambio viaja a través de ramas `feature/` o `hotfix/` aprobadas mediante *Pull Requests* / *Merge Requests*.
+
+
+---
+
+## 8. Simulación Real de Ramas en este Repositorio
+
+¡Este repositorio ya contiene una simulación viva y real de Git Flow lista para que la explores y practiques!
+
+### 🌿 Ramas creadas localmente
+
+Ejecuta en tu terminal:
+```bash
+git branch -a
+git tag -l
+```
+
+Verás las siguientes ramas y etiquetas:
+
+| Rama / Tag | Estado | Qué representa en este proyecto |
+| :--- | :--- | :--- |
+| `master` | **Producción** | Contiene el código estable con los tags `v1.0.0` y `v1.0.1`. |
+| `develop` | **Desarrollo Activo** | Contiene la integración de todas las funcionalidades terminadas y sincronizaciones de releases/hotfixes. |
+| `feature/login-screen` | **Completada y fusionada** | Simula la creación de `LoginScreen.kt` con validaciones, unida a `develop` mediante `--no-ff`. |
+| `feature/perfil-usuario` | **En progreso (Activa)** | Contiene `UserProfileScreen.kt`. ¡Está abierta para que tú continúes su desarrollo! |
+| `release/v1.0.0` | **Release finalizado** | Preparación de la versión 1.0.0 y actualización en `build.gradle.kts`. |
+| `hotfix/v1.0.1-crash-inicio` | **Hotfix aplicado** | Corrección urgente aplicada sobre `master` y devuelta a `develop`. |
+| Tag `v1.0.0` | **Hito** | Primer lanzamiento oficial. |
+| Tag `v1.0.1` | **Hito** | Parche urgente en producción. |
+
+---
+
+### 👁️ ¿Cómo ver el Árbol Visual de Ramas?
+
+#### Opción 1: En la Terminal (Súper Rápido)
+Ejecuta:
+```bash
+git log --graph --oneline --all
+```
+Verás las líneas coloreadas mostrando cómo nacen las ramas, se separan y se vuelven a unir.
+
+#### Opción 2: En Android Studio (Gráfico Interactivo)
+1. Presiona `Alt + 9` (o ve a la barra inferior y haz clic en la pestaña **Git**).
+2. Haz clic en la subpestaña **Log**.
+3. Verás el mapa de commits con todas las ramas (`develop`, `master`, `feature/*`, `hotfix/*`) coloreadas y podrás hacer clic en cada commit para ver qué archivos cambiaron.
+
+---
+
+### 🎯 3 Retos Prácticos para que Experimentes Ahora Mismo
+
+#### 🥊 Reto 1: Cambiarte a la feature activa y hacer tu propio commit
+```bash
+# 1. Cambia a la rama de perfil que dejamos en progreso
+git switch feature/perfil-usuario
+
+# 2. Abre app/src/main/java/com/albin/gittutorial/UserProfileScreen.kt y agrega un cambio
+# 3. Guarda y haz tu commit:
+git add .
+git commit -m "feat(profile): agrega boton de cerrar sesion"
+
+# 4. Revisa tu avance en el grafo
+git log --oneline -n 3
+```
+
+#### 🥊 Reto 2: Finalizar la feature y fusionarla en develop (como un pro)
+```bash
+# 1. Vuelve a develop
+git switch develop
+
+# 2. Fusiona tu rama con --no-ff para conservar el rombo en el historial
+git merge --no-ff feature/perfil-usuario -m "merge: finaliza y fusiona feature/perfil-usuario en develop"
+
+# 3. Comprueba el nuevo gráfico
+git log --graph --oneline --all -n 15
+```
+
+#### 🥊 Reto 3: Comparar producción con desarrollo
+```bash
+# Mira qué cambios tiene develop que aún no están en master:
+git log master..develop --oneline
+```
