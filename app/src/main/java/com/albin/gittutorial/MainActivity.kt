@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
             GitTutorialTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "java",
+                        name = "Kotlin",
                         modifier = Modifier.padding(innerPadding)
                     )///////////////////////////// :)
                 }
