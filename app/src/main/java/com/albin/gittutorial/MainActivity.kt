@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     Greeting(
                         name = "Kotlin",
                         modifier = Modifier.padding(innerPadding)
-                    )///////////////////////////// :)
+                    )
                 }
             }
         }
