@@ -172,11 +172,11 @@ Un conflicto ocurre cuando dos personas modificaron la **misma línea del mismo 
 
 | Tipo de Rama | Nombre habitual | ¿De dónde nace? | ¿A dónde se fusiona? | Propósito |
 | :--- | :--- | :--- | :--- | :--- |
-| **Permanente** | `master` / `main` | Inicio del repo | *(Nadie la borra)* | Código 100% estable en producción. |
-| **Permanente** | `develop` | `master` | *(Nadie la borra)* | Base del desarrollo diario de la próxima versión. |
+| **Permanente** | `main` | Inicio del repo | *(Nadie la borra)* | Código 100% estable en producción. |
+| **Permanente** | `develop` | `main` | *(Nadie la borra)* | Base del desarrollo diario de la próxima versión. |
 | **Temporal** | `feature/*` | `develop` | `develop` | Desarrollar una nueva funcionalidad aislada. |
-| **Temporal** | `release/*` | `develop` | `master` y `develop` | Preparar, probar y congelar una versión para entrega. |
-| **Temporal** | `hotfix/*` | `master` | `master` y `develop` | Arreglar un bug crítico urgente en producción. |
+| **Temporal** | `release/*` | `develop` | `main` y `develop` | Preparar, probar y congelar una versión para entrega. |
+| **Temporal** | `hotfix/*` | `main` | `main` y `develop` | Arreglar un bug crítico urgente en producción. |
 
 ### 📊 Diagrama Visual de Git Flow
 
@@ -260,12 +260,12 @@ git switch -c release/v1.0.0
 # 2. Aquí SOLO se corrigen detalles menores, versiones de build o traducciones
 git commit -am "chore: actualiza versión a 1.0.0"
 
-# 3. Se fusiona en master (producción) y se etiqueta
-git switch master
-git pull origin master
+# 3. Se fusiona en main (producción) y se etiqueta
+git switch main
+git pull origin main
 git merge release/v1.0.0
 git tag -a v1.0.0 -m "Versión 1.0.0 lista para producción"
-git push origin master --tags
+git push origin main --tags
 
 # 4. Se devuelve a develop para que conserve los ajustes hechos
 git switch develop
@@ -282,19 +282,19 @@ git branch -d release/v1.0.0
 > **Meta**: La app en producción se cierra al presionar un botón. No puedes esperar al siguiente release; debes arreglarlo de inmediato.
 
 ```bash
-# 1. Nace DIRECTO desde master
-git switch master
-git pull origin master
+# 1. Nace DIRECTO desde main
+git switch main
+git pull origin main
 git switch -c hotfix/v1.0.1-crash-inicio
 
 # 2. Se repara el error
 git commit -am "fix: soluciona NullPointerException al iniciar"
 
-# 3. Se fusiona en master y se sube de versión
-git switch master
+# 3. Se fusiona en main y se sube de versión
+git switch main
 git merge hotfix/v1.0.1-crash-inicio
 git tag -a v1.0.1 -m "Hotfix crítico crash de inicio"
-git push origin master --tags
+git push origin main --tags
 
 # 4. IMPORTANTE: También se debe sincronizar con develop para no arrastrar el error
 git switch develop
@@ -336,7 +336,7 @@ Usa prefijos claros para que cualquier persona entienda el historial de un vista
 ---
 
 > [!TIP]
-> **Regla de Oro en Equipos:** Nunca hagas commits directamente en `master` o `main`. Todo cambio viaja a través de ramas `feature/` o `hotfix/` aprobadas mediante *Pull Requests* / *Merge Requests*.
+> **Regla de Oro en Equipos:** Nunca hagas commits directamente en `main`. Todo cambio viaja a través de ramas `feature/` o `hotfix/` aprobadas mediante *Pull Requests* / *Merge Requests*.
 
 
 ---
@@ -357,12 +357,12 @@ Verás las siguientes ramas y etiquetas:
 
 | Rama / Tag | Estado | Qué representa en este proyecto |
 | :--- | :--- | :--- |
-| `master` | **Producción** | Contiene el código estable con los tags `v1.0.0` y `v1.0.1`. |
+| `main` | **Producción** | Contiene el código estable con los tags `v1.0.0` y `v1.0.1`. |
 | `develop` | **Desarrollo Activo** | Contiene la integración de todas las funcionalidades terminadas y sincronizaciones de releases/hotfixes. |
 | `feature/login-screen` | **Completada y fusionada** | Simula la creación de `LoginScreen.kt` con validaciones, unida a `develop` mediante `--no-ff`. |
 | `feature/perfil-usuario` | **En progreso (Activa)** | Contiene `UserProfileScreen.kt`. ¡Está abierta para que tú continúes su desarrollo! |
 | `release/v1.0.0` | **Release finalizado** | Preparación de la versión 1.0.0 y actualización en `build.gradle.kts`. |
-| `hotfix/v1.0.1-crash-inicio` | **Hotfix aplicado** | Corrección urgente aplicada sobre `master` y devuelta a `develop`. |
+| `hotfix/v1.0.1-crash-inicio` | **Hotfix aplicado** | Corrección urgente aplicada sobre `main` y devuelta a `develop`. |
 | Tag `v1.0.0` | **Hito** | Primer lanzamiento oficial. |
 | Tag `v1.0.1` | **Hito** | Parche urgente en producción. |
 
@@ -380,7 +380,7 @@ Verás las líneas coloreadas mostrando cómo nacen las ramas, se separan y se v
 #### Opción 2: En Android Studio (Gráfico Interactivo)
 1. Presiona `Alt + 9` (o ve a la barra inferior y haz clic en la pestaña **Git**).
 2. Haz clic en la subpestaña **Log**.
-3. Verás el mapa de commits con todas las ramas (`develop`, `master`, `feature/*`, `hotfix/*`) coloreadas y podrás hacer clic en cada commit para ver qué archivos cambiaron.
+3. Verás el mapa de commits con todas las ramas (`develop`, `main`, `feature/*`, `hotfix/*`) coloreadas y podrás hacer clic en cada commit para ver qué archivos cambiaron.
 
 ---
 
@@ -414,6 +414,6 @@ git log --graph --oneline --all -n 15
 
 #### 🥊 Reto 3: Comparar producción con desarrollo
 ```bash
-# Mira qué cambios tiene develop que aún no están en master:
-git log master..develop --oneline
+# Mira qué cambios tiene develop que aún no están en main:
+git log main..develop --oneline
 ```
